@@ -136,7 +136,7 @@ button{cursor:pointer}
 .keyword-card{padding:25px 28px}
 .keyword-head{display:flex;justify-content:space-between;align-items:flex-start}
 .keyword-doodle{font-size:27px;color:var(--pink);display:flex;gap:9px;transform:rotate(6deg);padding:6px}
-.keyword-doodle span:nth-child(2){color:var(--yellow);font-size:21px;margin-top:12px}
+.keyword-doodle span:nth-child(2){color:var(--star);font-size:21px;margin-top:12px}
 .keyword-cloud{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:11px;padding:5px 8px 2px}
 .keyword{display:inline-block;padding:8px 14px;border-radius:20px;border:1.5px dashed var(--line);background:#FBFEFF;font:700 14px "Quicksand",sans-serif;transition:transform .2s ease}
 .keyword:hover{transform:rotate(-2deg) translateY(-3px)}
@@ -240,10 +240,48 @@ footer span{color:var(--pink)}
 .edu{display:grid;grid-template-columns:150px 1fr;gap:20px}.edu-year{font:600 11px "JetBrains Mono",monospace;color:var(--brown);background:var(--blue2);border-radius:15px;padding:8px;text-align:center;height:max-content}.edu h3{font:700 20px "Quicksand",sans-serif}.edu p{font-size:14px;color:var(--muted)}.course-list,.awards{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.course,.award{font-size:12px;border:1px dashed var(--line);border-radius:13px;padding:5px 8px;background:#fff}.award{background:#FFF9FA;border-color:#D8B7C0}.award strong{color:var(--pink)}
 .research-grid,.interest-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.research,.interest{border:1.5px dashed var(--line);border-radius:20px;padding:17px;background:#FBFEFF}.research h3,.interest h3{font:700 17px "Quicksand",sans-serif;margin-bottom:5px}.research p,.interest p{font-size:13px;color:var(--muted)}.interest{text-align:center}.interest .big{font-size:28px;display:block;margin-bottom:3px}
 
+
+/* 移动端与分享优化 */
+.nav-links{overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.share-btn{display:inline-flex;align-items:center;gap:6px;margin-left:8px;border:1.5px dashed var(--line);background:#FBFEFF;color:var(--brown);padding:6px 10px;border-radius:16px;font-size:13px}
+.share-btn:hover{background:var(--blue2)}
+.back-top{position:fixed;right:18px;bottom:18px;z-index:40;width:44px;height:44px;border-radius:50%;border:2px dashed var(--brown);background:rgba(255,255,255,.94);color:var(--brown);display:grid;place-items:center;text-decoration:none;box-shadow:0 5px 18px rgba(80,70,65,.12);opacity:0;pointer-events:none;transition:.25s}
+.back-top.show{opacity:1;pointer-events:auto}
+@media(max-width:760px){
+  .page{width:min(100% - 16px,1100px);margin-top:10px}
+  .nav{top:7px;padding:9px 12px;border-radius:20px;margin-bottom:12px;gap:8px}
+  .logo{font-size:17px;flex:0 0 auto}
+  .nav-links{gap:2px;max-width:58vw}
+  .nav-links a{font-size:12px;padding:5px 8px}
+  .share-btn{font-size:12px;padding:5px 8px;margin-left:0;flex:0 0 auto}
+  .hero{grid-template-columns:1fr;padding:25px 18px 24px;gap:16px;border-radius:28px}
+  .hero h1{font-size:48px}
+  .subtitle{font-size:16px}
+  .intro{font-size:14px}
+  .hero-actions .btn{flex:1;min-width:130px}
+  .photo{width:min(220px,72vw);height:min(280px,92vw)}
+  .section-card{padding:20px 16px;border-radius:23px}
+  .section-title{font-size:23px}
+  .card-grid,.skills-grid,.project-grid{grid-template-columns:1fr}
+  .now-grid{grid-template-columns:1fr 1fr}
+  .now-item{min-height:150px;padding:14px}
+  .timeline{padding-left:21px}
+  .timeline-item:before{left:-25px}
+  .contact-row{flex-direction:column}
+  .contact-item{width:100%}
+}
+@media(max-width:430px){
+  .now-grid{grid-template-columns:1fr}
+  .now-item{min-height:auto}
+  .hero h1{font-size:44px}
+  .keyword{font-size:13px;padding:7px 11px}
+}
+
 </style>
 </head>
 
-<body>
+<body id="top">
 <main class="page">
 
 <nav class="nav" aria-label="主导航">
@@ -435,6 +473,7 @@ footer span{color:var(--pink)}
 
 <section class="section reveal" id="contact"><div class="cta hover-card"><div class="star s1" aria-hidden="true">★</div><div class="star s3" aria-hidden="true">✦</div><h2>一起聊聊智慧养殖吧 ♡</h2><p>如果你想了解我的学习方向、专业实践或未来的研究探索，欢迎联系我。</p><div class="contact-row"><a class="contact-item" href="tel:18171201412">☎ 18171201412</a><a class="contact-item" href="mailto:2140351357@qq.com">✉ 2140351357@qq.com</a></div></div></section>
 <footer><p>Made with <span>♡</span> by 易阳 · 华中农业大学 · 畜牧专业</p></footer>
+<a class="back-top" id="backTop" href="#top" aria-label="回到顶部">↑</a>
 </main>
 
 <button class="top-btn" id="topBtn" type="button" aria-label="返回顶部">↑</button>
@@ -470,6 +509,22 @@ footer span{color:var(--pink)}
     window.scrollTo({top:0, behavior: reduceMotion ? "auto" : "smooth"});
   });
 })();
+
+// 移动端分享与回到顶部
+const shareBtn=document.getElementById('shareBtn');
+if(shareBtn){
+  shareBtn.addEventListener('click', async ()=>{
+    const data={title:'易阳｜个人简历',text:'易阳｜华中农业大学畜牧专业研究生个人主页',url:location.href};
+    try{
+      if(navigator.share){ await navigator.share(data); }
+      else if(navigator.clipboard){ await navigator.clipboard.writeText(location.href); shareBtn.textContent='✓ 已复制'; setTimeout(()=>shareBtn.textContent='↗ 分享',1600); }
+      else { window.prompt('复制我的个人主页网址：',location.href); }
+    }catch(e){}
+  });
+}
+const backTop=document.getElementById('backTop');
+window.addEventListener('scroll',()=>{ if(backTop) backTop.classList.toggle('show',window.scrollY>500); },{passive:true});
+
 </script>
 </body>
 </html>
